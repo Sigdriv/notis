@@ -1,14 +1,20 @@
 import "./App.css";
-import { AppRoutes } from "./components/AppRoutes/AppRoutes";
+import { AppRoutes } from "./pages/AppRoutes/AppRoutes";
 import { BrowserRouter } from "react-router-dom";
 import { NavBar } from "./components/NavBar/NavBar";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./theme";
 
 export function App() {
   return (
-    <BrowserRouter>
-      <NavBar />
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          {/* <NavBar /> */}
 
-      <AppRoutes />
-    </BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </ThemeProvider>
+    </div>
   );
 }
