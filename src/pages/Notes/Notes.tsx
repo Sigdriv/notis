@@ -1,75 +1,57 @@
-import {
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  useTheme,
-} from "@mui/material";
-import { Header1 } from "../../components/Typography/Header/Header";
-import { getFromLocalStorage } from "../../helperFunctions";
-import type { Note } from "../../types";
 import { useNavigate } from "react-router-dom";
-import { ArrowForwardIos, MoreVert } from "@mui/icons-material";
+import { Box, Button, Stack } from "@mui/material";
+
+import {
+  getFromLocalStorage,
+  setToLocalStorage,
+  randomId,
+} from "../../helperFunctions";
+import { Header1, Text } from "../../components";
+import { Filters } from "./Filters";
+import { NotesTable } from "./NotesTable";
 
 export function Notes() {
   const navigate = useNavigate();
-  const {
-    palette: {
-      secondary: { main: secondaryMain },
-      primary: { main: primaryMain },
-    },
-  } = useTheme();
+  function handleNewNote() {
+    const existingNotes = getFromLocalStorage("notes");
+    const id = randomId();
 
-  const notes: Note[] = getFromLocalStorage("notes");
+    setToLocalStorage("notes", [
+      ...existingNotes,
+      {
+        id,
+        title: "Nytt notat " + new Date().toLocaleDateString("no-NB"),
+        note: "",
+        createdAt: new Date().toISOString(),
+        lastModified: new Date().toISOString(),
+        tags: [],
+      },
+    ]);
+
+    navigate(`${id}`);
+  }
 
   return (
-    <div>
-      <Header1>Notater</Header1>
+    <Stack gap="2rem">
+      <div>
+        <Header1>Notater</Header1>
 
-      <TableContainer component={Paper} sx={{ backgroundColor: primaryMain }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Tittel</TableCell>
-              <TableCell>Opprettet</TableCell>
-              <TableCell>Sist endret</TableCell>
-              <TableCell>Handlinger</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
+        <Text variant="ingress">
+          Her kan du se og administrere dine notater
+        </Text>
+      </div>
 
-          <TableBody>
-            {notes.map(({ id, title, createdAt, lastModified }) => (
-              <TableRow
-                key={id}
-                onClick={() => navigate(`${id}`)}
-                sx={{
-                  ":hover": {
-                    backgroundColor: secondaryMain,
-                    cursor: "pointer",
-                  },
-                }}
-              >
-                <TableCell>{title}</TableCell>
-                <TableCell>{createdAt}</TableCell>
-                <TableCell>{lastModified}</TableCell>
-                <TableCell>
-                  <IconButton onClick={() => console.log(id)}>
-                    <MoreVert />
-                  </IconButton>
-                </TableCell>
-                <TableCell>
-                  <ArrowForwardIos />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+      <Stack direction="row" justifyContent="space-between">
+        <Filters />
+
+        <Box alignContent="end">
+          <Button variant="contained" onClick={handleNewNote}>
+            Nytt notat
+          </Button>
+        </Box>
+      </Stack>
+
+      <NotesTable />
+    </Stack>
   );
 }

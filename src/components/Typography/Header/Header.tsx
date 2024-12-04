@@ -15,7 +15,6 @@ function HeaderBase({
 }: HeaderProps & { fontSize: string; paddingBottom: string }) {
   return (
     <Typography
-      color="text.primary"
       variant={headerLevel}
       fontSize={fontSize}
       fontWeight="bold"

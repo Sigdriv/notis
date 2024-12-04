@@ -1,30 +1,25 @@
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Input,
-  Stack,
-  useTheme,
-} from "@mui/material";
-import { Header1, Header2 } from "../../components/Typography/Header/Header";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Box, Button, Card, CardContent, Stack } from "@mui/material";
+
+import { Header1, Header2, TextInput } from "../../components";
 import { Note } from "../../types";
 import {
   getFromLocalStorage,
   randomId,
   setToLocalStorage,
 } from "../../helperFunctions";
+import { useColors } from "../../utils";
+import { initialNoteState } from "./utils";
 
 export function StartHere() {
-  const [formState, setFormState] = useState({ title: "" });
+  const navigate = useNavigate();
+  const [formState, setFormState] = useState<{ title: string; tags: string[] }>(
+    { title: "", tags: [] }
+  );
   const [submittAttempted, setSubmitAttempted] = useState(false);
 
-  const {
-    palette: {
-      secondary: { main },
-    },
-  } = useTheme();
+  const { secondaryMain } = useColors();
 
   const handleSubmit = () => {
     setSubmitAttempted(true);
@@ -36,22 +31,27 @@ export function StartHere() {
       setToLocalStorage("notes", [
         ...notes,
         {
+          ...initialNoteState,
           id: id,
           title: formState.title,
-          note: "",
           createdAt: new Date().toISOString(),
           lastModified: new Date().toISOString(),
+          tags: formState.tags,
         },
       ]);
 
-      window.location.href = `/notater/${id}`;
-    }
-
-    if (formState.title === "") {
-      // TODO: Use InfoBox
-      alert("Tittel er påkrevd");
+      navigate(`/notater/${id}`);
     }
   };
+
+  function handleTagChange(value: string) {
+    const tags = value.split(",").map((tag) => tag.trim().toUpperCase());
+    if (tags[0] === "") {
+      tags.pop();
+    }
+
+    setFormState({ ...formState, tags });
+  }
 
   return (
     <Stack
@@ -66,7 +66,7 @@ export function StartHere() {
         <Stack>
           <Card
             sx={{
-              backgroundColor: main,
+              backgroundColor: secondaryMain,
               width: "fit-content",
               px: "2rem",
               pb: "1rem",
@@ -77,14 +77,23 @@ export function StartHere() {
             </CardContent>
 
             <Stack gap="1rem">
-              <Input
-                placeholder="Tittel"
-                name="title"
-                onChange={({ target: { value } }) =>
+              <TextInput
+                label="* Tittel"
+                onChange={(value) =>
                   setFormState({ ...formState, title: value })
                 }
                 value={formState.title}
-                error={formState.title === "" && submittAttempted}
+                fullWidth
+                shouldShowError={formState.title === "" && submittAttempted}
+                errorText="Tittel er påkrevd"
+              />
+
+              <TextInput
+                label="Tagger"
+                onChange={(value) => handleTagChange(value)}
+                value={formState.tags.map((tag) => tag).join(", ")}
+                helperText="Separer tagger med komma"
+                fullWidth
               />
 
               <Box width="10rem">

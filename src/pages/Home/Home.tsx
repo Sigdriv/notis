@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
-import { Text } from "../../components/Typography/Text/Text";
-import { Header1 } from "../../components/Typography/Header/Header";
+
 import { getFromLocalStorage } from "../../helperFunctions";
+import { Header1, Text } from "../../components";
 
 export function Home() {
   const notes = getFromLocalStorage("notes");
@@ -13,7 +13,7 @@ export function Home() {
       minHeight="80vh"
       gap="2rem"
     >
-      <Stack>
+      <Stack alignItems="center">
         <Header1>NOTIS</Header1>
 
         <Text>

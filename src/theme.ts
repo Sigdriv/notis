@@ -52,6 +52,43 @@ const colors = {
 } as const;
 
 export const theme: Theme = createTheme({
+  components: {
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: colors.secondary,
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.secondary,
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: colors.text.primary,
+        },
+      },
+    },
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.secondary,
+        },
+      },
+    },
+    MuiTableContainer: {
+      styleOverrides: {
+        root: {
+          backgroundColor: colors.primary,
+        },
+      },
+    },
+  },
   palette: {
     contrastThreshold: 4.5,
     common: {
@@ -71,12 +108,11 @@ export const theme: Theme = createTheme({
     primary: {
       main: colors.primary,
       light: colors.light,
-      // dark: '#003867',
       contrastText: colors.text.contrast,
     },
     secondary: {
       main: colors.secondary,
-      dark: colors.link, // used as default for Link
+      dark: colors.link,
       contrastText: colors.black,
     },
     warning: {

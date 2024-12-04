@@ -1,9 +1,11 @@
 import { Outlet, Route, Routes } from "react-router-dom";
+
 import { Home } from "../Home/Home";
 import { NotFound } from "../NotFound/NotFound";
 import { StartHere } from "../StartHere/StartHere";
 import { NotePage } from "../Note/NotePage";
 import { Notes } from "../Notes/Notes";
+import { FilterProvider } from "../Notes/FilterContext";
 
 export function AppRoutes() {
   return (
@@ -11,7 +13,14 @@ export function AppRoutes() {
       <Route path="/" element={<Outlet />}>
         <Route index element={<Home />} />
         <Route path="kom-igang" element={<StartHere />} />'
-        <Route path="notater" element={<Outlet />}>
+        <Route
+          path="notater"
+          element={
+            <FilterProvider>
+              <Outlet />
+            </FilterProvider>
+          }
+        >
           <Route index element={<Notes />} />
 
           <Route path=":noteId" element={<NotePage />} />
