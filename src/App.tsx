@@ -1,8 +1,9 @@
-import "./App.css";
-import { AppRoutes } from "./pages/AppRoutes/AppRoutes";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/material";
+
 import { theme } from "./theme";
+import { AppRoutes } from "./pages/AppRoutes/AppRoutes";
+import "./App.css";
 
 export function App() {
   return (

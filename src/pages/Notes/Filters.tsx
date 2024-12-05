@@ -1,43 +1,29 @@
-import { Box, MenuItem, Select, Stack, TextField } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
-import { Text } from "../../components";
-import { useColors } from "../../utils";
+import { Select, TextInput } from "../../components";
 import { useFilter } from "./FilterContext";
 
 export function Filters() {
   const { search, setSearch, selectedTag, setSelectedTag, tags } = useFilter();
-  const { secondaryMain } = useColors();
 
   return (
     <Stack direction="row" gap="2rem">
       <Box width="20rem">
-        <Text>Søk</Text>
-
-        <TextField
-          variant="filled"
+        <TextInput
+          label="Søk"
           fullWidth
-          sx={{ bgcolor: secondaryMain }}
           value={search}
-          onChange={({ target: { value } }) => setSearch(value)}
+          onChange={(value) => setSearch(value)}
         />
       </Box>
 
       <Box width="20rem">
-        <Text>Tagger</Text>
-
         <Select
-          label="Tags"
-          variant="filled"
-          fullWidth
+          label="Tagger"
           value={selectedTag}
-          onChange={({ target: { value } }) => setSelectedTag(value)}
-        >
-          {tags.map((tag) => (
-            <MenuItem key={tag} value={tag} sx={{ color: "black" }}>
-              {tag}
-            </MenuItem>
-          ))}
-        </Select>
+          onChange={(value) => setSelectedTag(value)}
+          options={tags.map((tag) => ({ label: tag, value: tag }))}
+        />
       </Box>
     </Stack>
   );

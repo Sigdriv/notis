@@ -19,7 +19,7 @@ export function NotesTable() {
   const navigate = useNavigate();
   const { secondaryMain } = useColors();
 
-  const { filteredNotes, notes } = useFilter();
+  const { filteredNotes } = useFilter();
 
   return (
     <TableContainer component={Paper}>

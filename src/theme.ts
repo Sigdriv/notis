@@ -67,13 +67,6 @@ export const theme: Theme = createTheme({
         },
       },
     },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          color: colors.text.primary,
-        },
-      },
-    },
     MuiSelect: {
       styleOverrides: {
         root: {

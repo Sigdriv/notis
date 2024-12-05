@@ -24,3 +24,10 @@ export const filterNotes = ({
     return matchesTitle && matchesTag;
   });
 };
+
+export const sortDesending = (note: Note[]) => {
+  return note.sort(
+    (a, b) =>
+      new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
+  );
+};

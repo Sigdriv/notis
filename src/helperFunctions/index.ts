@@ -5,7 +5,7 @@ export const randomId = () => {
 };
 
 export const getFromLocalStorage = (key: string) => {
-  return JSON.parse(localStorage.getItem("notes") || "[]");
+  return JSON.parse(localStorage.getItem(key) || "[]");
 };
 
 export const setToLocalStorage = (key: string, value: any) => {
@@ -13,9 +13,9 @@ export const setToLocalStorage = (key: string, value: any) => {
 };
 
 export const formatDateTime = (date: Date | string) => {
-  const dateet = new Date(date);
+  const convertetDate = new Date(date);
 
-  if (dateet.getDate() === new Date().getDate()) {
+  if (convertetDate.getDate() === new Date().getDate()) {
     return new Date(date).toLocaleTimeString("nb-NO", {
       hour: "2-digit",
       minute: "2-digit",
@@ -29,13 +29,6 @@ export const formatDateTime = (date: Date | string) => {
     hour: "2-digit",
     minute: "2-digit",
   });
-};
-
-export const sortDesending = (note: Note[]) => {
-  return note.sort(
-    (a, b) =>
-      new Date(b.lastModified).getTime() - new Date(a.lastModified).getTime()
-  );
 };
 
 export const onlyUnique = (data: string[] | string[][]): string[] => {

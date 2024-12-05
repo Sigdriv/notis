@@ -5,6 +5,6 @@ export const initialNoteState: Note = {
   title: "",
   note: "",
   tags: [],
-  createdAt: "",
-  lastModified: "",
+  createdAt: new Date().toISOString(),
+  lastModified: new Date().toISOString(),
 };

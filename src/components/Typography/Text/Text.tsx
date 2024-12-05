@@ -1,6 +1,6 @@
 // Inspo from: tipverse - Trondheim kommune
 
-import { Typography, useTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;

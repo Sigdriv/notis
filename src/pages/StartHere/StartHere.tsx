@@ -14,6 +14,7 @@ import { initialNoteState } from "./utils";
 
 export function StartHere() {
   const navigate = useNavigate();
+
   const [formState, setFormState] = useState<{ title: string; tags: string[] }>(
     { title: "", tags: [] }
   );
@@ -34,8 +35,6 @@ export function StartHere() {
           ...initialNoteState,
           id: id,
           title: formState.title,
-          createdAt: new Date().toISOString(),
-          lastModified: new Date().toISOString(),
           tags: formState.tags,
         },
       ]);

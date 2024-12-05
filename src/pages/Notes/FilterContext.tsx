@@ -6,15 +6,11 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import {
-  getFromLocalStorage,
-  onlyUnique,
-  sortDesending,
-} from "../../helperFunctions";
+import { getFromLocalStorage, onlyUnique } from "../../helperFunctions";
 import type { Note } from "../../types";
-import { filterNotes } from "./utils";
-import { useNavigate } from "react-router-dom";
+import { filterNotes, sortDesending } from "./utils";
 
 const FilterContext = createContext<NoteFilterContext>({} as NoteFilterContext);
 
@@ -27,7 +23,6 @@ interface NoteFilterContext {
   filteredNotes: Note[];
   isSaved: boolean;
   setIsSaved: (isSaved: boolean) => void;
-  notes: Note[];
 }
 
 export function useFilter() {
@@ -39,12 +34,12 @@ interface Props {
 }
 
 export function FilterProvider({ children }: Props) {
+  const location = useLocation();
   const navigate = useNavigate();
 
   const [notes, setNotes] = useState<Note[]>([]);
   const [search, setSearch] = useState("");
   const [selectedTag, setSelectedTag] = useState("Alle");
-
   const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
@@ -53,7 +48,7 @@ export function FilterProvider({ children }: Props) {
     setIsSaved(false);
   }, [isSaved]);
 
-  if (notes.length === 0 && window.location.pathname === "/notater") {
+  if (notes.length === 0 && location.pathname === "/notater") {
     navigate("/kom-igang");
   }
 
@@ -80,10 +75,8 @@ export function FilterProvider({ children }: Props) {
 
       isSaved,
       setIsSaved,
-
-      notes,
     };
-  }, [filteredNotes, isSaved, search, selectedTag, tags, notes]);
+  }, [filteredNotes, isSaved, search, selectedTag, tags]);
 
   return (
     <FilterContext.Provider value={memoedState}>

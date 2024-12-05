@@ -5,7 +5,6 @@ import { Header1, Text } from "../../components";
 export function NotFound() {
   return (
     <Stack
-      display="flex"
       justifyContent="center"
       alignItems="center"
       minHeight="80vh"

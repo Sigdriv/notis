@@ -9,9 +9,11 @@ import {
 import { Header1, Text } from "../../components";
 import { Filters } from "./Filters";
 import { NotesTable } from "./NotesTable";
+import { initialNoteState } from "../StartHere/utils";
 
 export function Notes() {
   const navigate = useNavigate();
+
   function handleNewNote() {
     const existingNotes = getFromLocalStorage("notes");
     const id = randomId();
@@ -19,12 +21,9 @@ export function Notes() {
     setToLocalStorage("notes", [
       ...existingNotes,
       {
+        ...initialNoteState,
         id,
         title: "Nytt notat " + new Date().toLocaleDateString("no-NB"),
-        note: "",
-        createdAt: new Date().toISOString(),
-        lastModified: new Date().toISOString(),
-        tags: [],
       },
     ]);
 

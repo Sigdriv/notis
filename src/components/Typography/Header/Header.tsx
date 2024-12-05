@@ -20,6 +20,7 @@ function HeaderBase({
       fontWeight="bold"
       maxWidth="75ch"
       paddingBottom={paddingBottom}
+      color="white"
       sx={{
         wordBreak: "break-word",
         wordWrap: "break-word",
@@ -47,39 +48,6 @@ export function Header2({ headerLevel = "h2", children }: HeaderProps) {
       headerLevel={headerLevel}
       fontSize="1.85rem"
       paddingBottom="0.7rem"
-      children={children}
-    />
-  );
-}
-
-export function Header3({ headerLevel = "h3", children }: HeaderProps) {
-  return (
-    <HeaderBase
-      headerLevel={headerLevel}
-      fontSize="1.5rem"
-      paddingBottom="0.5rem"
-      children={children}
-    />
-  );
-}
-
-export function Header4({ headerLevel = "h4", children }: HeaderProps) {
-  return (
-    <HeaderBase
-      headerLevel={headerLevel}
-      fontSize="1.25rem"
-      paddingBottom="0.4rem"
-      children={children}
-    />
-  );
-}
-
-export function Header5({ headerLevel = "h5", children }: HeaderProps) {
-  return (
-    <HeaderBase
-      headerLevel={headerLevel}
-      fontSize="1.125rem"
-      paddingBottom="0.1rem"
       children={children}
     />
   );
